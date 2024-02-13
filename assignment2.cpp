@@ -140,16 +140,51 @@ void BST::max(){
 
 int main(){
 	BST bst;
-	bst.addtoBST();
-	bst.addtoBST();
-	bst.addtoBST();
-	bst.addtoBST();
-	bst.addtoBST();
-	bst.search();
-	bst.display();
-	bst.min();
-	bst.max();
-	
+	int flag=1;
+	while(flag){
+		cout<<"------------------MENU-----------------"<<endl;
+		cout<<"Choose any one of the following options: "<<endl;
+		cout<<"1. Add a node to the BST.\n";
+		cout<<"2. Search for an element in the BST,\n";
+		cout<<"3.Display the BST in preorder manner.\n";
+		cout<<"4. Display the minimum element in the BST\n";
+		cout<<"5. Display the maximum element in the BST\n";
+		cout<<"6. Exit\n";
+		cout<<"Your choice: ";
+		int choice;
+		cin>>choice;
+		switch(choice){
+			case 1:
+			bst.addtoBST();
+			break;
+			
+			case 2:
+			bst.search();
+			break;
+			
+			case 3:
+			bst.display();
+			break;
+			
+			case 4:
+			bst.min();
+			break;
+			
+			case 5:
+			bst.max();
+			break;
+			
+			case 6:
+			cout<<"Exiting...\n";
+			flag=0;
+			break;
+			
+			default:
+			cout<<"Please enter a valid option!!!\n";
+			break;
+			
+		}
+	}
 }
 
 
