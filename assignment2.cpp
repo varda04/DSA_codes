@@ -6,14 +6,14 @@ using namespace std;
 class BST{
 	struct node{
 		int data;
-		node *lc, *rc;
+		node *lc=nullptr;
+		node *rc=nullptr;
 	}*root;
 	
-	public:
 
 	node* createNode(){
 
-		node *newnode, *l, *r;
+		node *newnode= new node;
 		int d;
 		cout<<"Enter data: ";
 		cin>>d;
@@ -24,41 +24,51 @@ class BST{
 		return newnode;
 		
 	}
+	public:
+	BST(){
+		root= NULL;
+	}
 	
-	void createBST();
+	void addtoBST();
 	void search();
 	void display();
-	void pre_order_display();
+	void pre_order_display(node*);
+	void min();
+	void max();
 	
 };
 
-void BST::createBST(){
+void BST::addtoBST(){
 	node *temp, *cur;
 	temp= createNode();
 	if(root==NULL){
-		cout<<"Tree is urrently empty. Start by adding at least one element to it."<<endl;
+		cout<<"Tree is currently empty. This data entered is added as th root."<<endl;
 		root=temp;
 	}
 	else{
 		cur=root;
-		if(cur->data < temp->data){
-			if(cur->rc!=nullptr){
-				cur=cur->rc;
+		while(1){
+			if(cur->data < temp->data){
+				if(cur->rc!=nullptr){
+					cur=cur->rc;
+				}
+				else{
+					cur->rc=temp;
+					break;
+				}
+			}
+			else if( cur->data > temp->data){
+				if(cur->lc!=nullptr){
+					cur= cur->lc;
+				}
+				else{
+					cur->lc = temp;
+					break;
+				}
 			}
 			else{
-				cur->rc=temp;
+				//add equal data condition handling
 			}
-		}
-		else if( cur->data > temp->data){
-			if(cur->lc!=nullptr){
-				cur= cur->lc;
-			}
-			else{
-				cur->lc = temp;
-			}
-		}
-		else{
-			//add equal data condition handling
 		}
 	}
 }
@@ -69,13 +79,15 @@ void BST::search(){
 	int d;
 	cout<<"Enter element to search for: ";
 	cin>>d;
-	if(cur->data < d){
+	while(1){
+		if(cur->data < d){
 			if(cur->rc!=nullptr){
 				cur=cur->rc;
 			}
 			else{
 				cout<<"Not found"<<endl;
-				return;
+				break;
+			//	return;
 			}
 		}
 		else if( cur->data > d){
@@ -84,23 +96,59 @@ void BST::search(){
 			}
 			else{
 				cout<<"Not found"<<endl;
-				return;
+				break;
+			//	return;
 			}
 		}
 		else{
 			cout<<"Element found in the BST!!!"<<endl;
+			break;
 		}
+	}
 	
 }
 
+
+void BST::display(){
+	pre_order_display(root);
+}
+
+void BST::pre_order_display(node *temp){
+	if(temp!=NULL){
+		cout<<" "<<temp->data;
+		pre_order_display(temp->lc);
+		pre_order_display(temp->rc);
+	}
+}
+
+void BST::min(){
+	node *temp= root;
+	while(temp->lc!=nullptr){
+		temp= temp->lc;
+	}
+	cout<<"Minimum value in this BST is: "<<temp->data;
+}
+void BST::max(){
+	node *temp= root;
+	while(temp->rc!=nullptr){
+		temp= temp->rc;
+	}
+	cout<<"Maximum value in this BST is: "<<temp->data;
+}
+
+
+
 int main(){
 	BST bst;
-	bst.createBST();
-	bst.createBST();
-	bst.createBST();
-	bst.createBST();
-	bst.createBST();
+	bst.addtoBST();
+	bst.addtoBST();
+	bst.addtoBST();
+	bst.addtoBST();
+	bst.addtoBST();
 	bst.search();
+	bst.display();
+	bst.min();
+	bst.max();
 	
 }
 
